@@ -7,7 +7,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-require('./config/db')
+require('./src/config/db')
 
 
 app.get('/', (req, res)=>{
