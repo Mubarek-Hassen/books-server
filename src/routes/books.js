@@ -1,5 +1,3 @@
-// routes/api/books.js
-
 const express = require('express');
 const router = express.Router();
 
@@ -11,34 +9,22 @@ const {
   test, getBooks, getBook, createBook, updateBook, deleteBook
 } = require('../controllers/books-controller')
 
-// @route GET api/books/test
+// @route GET /books/test
 // @description tests books route
-// @access Public
-router.get('/test', test);
+router.route('/test').get(test);
 
-// @route GET api/books
-// @description Get all books
-// @access Public
-router.get('/', getBooks);
+// router.route('/path').httpMethod(function).httpMethod(function)...
+// If the path is identical, they can be written as such
 
-// @route GET api/books/:id
-// @description Get single book by id
-// @access Public
-router.get('/:id', getBook);
+router.route('/').get(getBooks).post(createBook)
 
-// @route GET api/books
-// @description add/save book
-// @access Public
-router.post('/', createBook);
+// router.get('/', getBooks);
+// router.post('/', createBook);
 
-// @route GET api/books/:id
-// @description Update book
-// @access Public
-router.put('/:id', updateBook);
+router.route('/:id').get(getBook).put(updateBook).delete(deleteBook)
 
-// @route GET api/books/:id
-// @description Delete book by id
-// @access Public
-router.delete('/:id', deleteBook);
+// router.get('/:id', getBook);
+// router.put('/:id', updateBook);
+// router.delete('/:id', deleteBook);
 
 module.exports = router;
