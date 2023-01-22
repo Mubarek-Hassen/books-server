@@ -12,6 +12,8 @@ require('./src/config/db')
 const books = require('./src/routes/books.js')
 const user = require('./src/routes/user')
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 app.use('/books', books)
 app.use('/user', user)
 
