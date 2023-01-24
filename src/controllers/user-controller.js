@@ -61,6 +61,7 @@ const loginUser = asyncHandler(async (req, res)=>{
   }
 })
 
+// PRIVATE
 const getUser = asyncHandler(async (req, res)=>{
   res.json({message: 'Get user'})
 })
