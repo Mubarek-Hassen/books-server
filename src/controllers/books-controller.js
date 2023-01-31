@@ -5,10 +5,9 @@ const test = (req, res) => res.send('testing books route!')
 
 // @description Get all books
 
-const getBooks = (req, res) => {
-  Book.find()
-    .then(books => res.json(books))
-    .catch(err => res.status(404).json({ nobooksfound: 'No Books found' }));
+const getBooks = async (req, res) => {
+  const books = await Book.find({ user: req.user.id})
+  res.json(books)
 }
 
 
