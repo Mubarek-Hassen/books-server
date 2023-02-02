@@ -23,7 +23,14 @@ const getBook = (req, res) => {
 // @description add/create book
 
 const createBook = (req, res) => {
-  Book.create(req.body)
+  Book.create({
+    user: req.user.id,
+    title: req.body.title,
+    isbn: req.body.isbn,
+    author: req.body.author,
+    title: req.body.title,
+    title: req.body.title,
+  })
     .then(book => res.json({ msg: 'Book added successfully' }))
     .catch(err => res.status(400).json({ error: 'Unable to add this book', err }));
 }
