@@ -1,4 +1,5 @@
 const Book = require('../models/Book')
+const User = require('../models/User')
 
 const test = (req, res) => res.send('testing books route!')
 
@@ -34,8 +35,14 @@ const createBook = (req, res) => {
 
 // @description update book
 
-const updateBook = (req, res) => {
-  Book.findByIdAndUpdate(req.params.id, req.body)
+const updateBook = async (req, res) => {
+  const user = await User.findById(req.user.id)
+  if(!user){
+    
+  }
+  const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  })
     .then(book => res.json({ msg: 'Updated successfully' }))
     .catch(err =>
       res.status(400).json({ error: 'Unable to update the Database' })
