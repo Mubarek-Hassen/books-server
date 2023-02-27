@@ -38,7 +38,14 @@ const createBook = (req, res) => {
 const updateBook = async (req, res) => {
   const user = await User.findById(req.user.id)
   if(!user){
-    
+    res.status(401)
+    throw new Error('user not found!')
+  }
+
+  // logged in user check
+  if(Book.user.toString() !== user.id){
+    res.status(401)
+    throw new Error('User not authorized')
   }
   const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -51,7 +58,18 @@ const updateBook = async (req, res) => {
 
 // @description delete book
 
-const deleteBook = (req, res) => {
+const deleteBook = async(req, res) => {
+  const user = await User.findById(req.user.id)
+  if(!user){
+    res.status(401)
+    throw new Error('user not found!')
+  }
+
+  // logged in user check
+  if(Book.user.toString() !== user.id){
+    res.status(401)
+    throw new Error('User not authorized')
+  }
   Book.findByIdAndRemove(req.params.id, req.body)
     .then(book => res.json({ mgs: 'Book entry deleted successfully' }))
     .catch(err => res.status(404).json({ error: 'No such a book' }));
