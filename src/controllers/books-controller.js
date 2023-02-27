@@ -37,13 +37,16 @@ const createBook = (req, res) => {
 
 const updateBook = async (req, res) => {
   const user = await User.findById(req.user.id)
+  const book = await Book.findById(req.params.id)
   if(!user){
     res.status(401)
     throw new Error('user not found!')
   }
 
   // logged in user check
-  if(Book.user.toString() !== user.id){
+  if(book.user.toString() !== user.id){
+    console.log(book)
+    console.log(user.id)
     res.status(401)
     throw new Error('User not authorized')
   }
